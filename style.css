@@ -1,0 +1,142 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+}
+
+/* Header and Navigation */
+header {
+    background: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff6600;
+}
+
+/* Home Section */
+.home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 10%;
+    background: #111;
+}
+
+.content {
+    flex: 1;
+}
+
+.content h1, .content h2, .content h3 {
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #ff6600;
+}
+
+/* About Me Section with Shadow */
+.about-me {
+    background: #222;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin: 40px 0;
+}
+
+/* Social Icons Section */
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #fff;
+    margin-right: 15px;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.social-icon:hover {
+    color: #ff6600;
+}
+
+/* Add text under the icons */
+.social-icon span {
+    display: block;
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 5px;
+}
+
+/* Button */
+.btn {
+    padding: 10px 20px;
+    background: #ff6600;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background: #e55b00;
+}
+
+/* Profile Image Section */
+.profile-img {
+    width: 300px;
+    height: 600px;
+    overflow: hidden;
+}
+
+/* Image Gallery */
+#imageGallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.gallery-image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+

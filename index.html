@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Full Body Images</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="home">
+        <div class="content">
+            <h1>Portfolio.</h1>
+            <h2>I'm <span class="highlight">[Abdiaziz Mohamed Abdi]</span></h2>
+            <h3>And I'm a Frontend Developer</h3>
+            <p>Welcome to my world of web development! I'm a passionate frontend developer with over 2 years of experience in creating beautiful, <br> intuitive, and responsive websites. I specialize in HTML, CSS, JavaScript, and modern frameworks like Bootstrap and Tailwind CSS. My goal is to make the web a more enjoyable place, one pixel at a time.</p>
+            <p>With every project, I strive for elegance in both design and functionality, ensuring a seamless experience for users across all devices. Whether it's a simple landing page or a complex application, I focus on clean code, efficiency, and design aesthetics.</p>
+
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <a href="https://wa.me/614867424" class="social-icon" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1999nspaUB/" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="mailto:abdiazizmohdabdi@gmail.com" class="social-icon">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/abdiazizmohdabdi/" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            
+            <!-- Button to navigate to About Page -->
+            <a href="About.html" class="btn">More About Me</a>
+        </div>
+        
+        <div class="profile-img">
+            <div id="imageGallery" class="image-gallery">
+                <img src="garka.jpg" alt="Full Body 1" class="gallery-image">
+                <img src="shati bulug.jpg" alt="Full Body 2" class="gallery-image">
+                <img src="lap.jpg" alt="Full Body 3" class="gallery-image">
+                <img src="surwal bulug.jpg" alt="Full Body 3" class="gallery-image">
+                <img src="shati gudud.jpg" alt="Full Body 3" class="gallery-image">
+                <img src="kabo.jpg" alt="Full Body 3" class="gallery-image">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.gallery-image');
+
+        function showNextImage() {
+            images[currentImageIndex].style.display = 'none'; // Hide the current image
+            currentImageIndex = (currentImageIndex + 1) % images.length; // Move to the next image
+            images[currentImageIndex].style.display = 'block'; // Show the next image
+        }
+
+        // Start the image slideshow
+        setInterval(showNextImage, 3000); // Change image every 3 seconds
+    </script>
+
+</body>
+</html>

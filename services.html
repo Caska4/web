@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Services</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Header and Navigation */
+header {
+    background: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff6600;
+}
+
+/* Services Section */
+.services {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 50px 10%;
+}
+
+.services h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.services h1 span {
+    color: #ff6600;
+}
+
+.service-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.service-box {
+    background: #222;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.service-box:hover {
+    transform: translateY(-10px);
+}
+
+.service-box .icon {
+    font-size: 50px;
+    color: #ff6600;
+    margin-bottom: 15px;
+}
+
+.service-box h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.service-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .service-container {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+    .service-box {
+        width: 90%; /* Makes service boxes take full width on very small screens */
+    }
+}
+    </style>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="services">
+        <h1>My <span>Services</span></h1>
+        <div class="service-container">
+            
+            <!-- Service 1: HTML Development -->
+            <div class="service-box">
+                <i class="fas fa-code icon"></i>
+                <h2>HTML Development</h2>
+                <p>Creating clean, structured, and semantic HTML to build the foundation of your website.</p>
+            </div>
+
+            <!-- Service 2: CSS Styling -->
+            <div class="service-box">
+                <i class="fas fa-paint-brush icon"></i>
+                <h2>CSS Styling</h2>
+                <p>Designing websites using CSS to create visually appealing, responsive layouts.</p>
+            </div>
+
+            <!-- Service 3: JavaScript Development -->
+            <div class="service-box">
+                <i class="fab fa-js icon"></i>
+                <h2>JavaScript Development</h2>
+                <p>Adding interactivity and dynamic content to websites using JavaScript for better user engagement.</p>
+            </div>
+
+            <!-- Service 4: Responsive Web Design -->
+            <div class="service-box">
+                <i class="fas fa-mobile-alt icon"></i>
+                <h2>Responsive Web Design</h2>
+                <p>Ensuring that your website looks great on all devices with responsive design techniques.</p>
+            </div>
+
+            <!-- Service 5: Frontend Troubleshooting -->
+            <div class="service-box">
+                <i class="fas fa-bug icon"></i>
+                <h2>Frontend Troubleshooting</h2>
+                <p>Diagnosing and fixing issues with the layout or interactivity of your website.</p>
+            </div>
+
+            <!-- Service 6: Basic Web Animations -->
+            <div class="service-box">
+                <i class="fas fa-sync-alt icon"></i>
+                <h2>Basic Web Animations</h2>
+                <p>Adding simple animations to your website to make it more engaging for users.</p>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>

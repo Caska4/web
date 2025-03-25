@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+
+        header nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header nav ul li a:hover {
+            color: #4caf50;
+        }
+
+        /* Projects Section */
+        section.projects {
+            padding: 40px;
+            background-color: #000;
+            max-width: 1200px;
+            margin: 40px auto;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        h1 span {
+            color: #4caf50;
+        }
+
+        .projects-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background-color: #333;
+            border-radius: 8px;
+            width: 30%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .project-card h3 {
+            font-size: 24px;
+            margin: 15px 0;
+            color: #fff;
+        }
+
+        .project-card p {
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .project-card a {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .project-card a:hover {
+            background-color: #45a049;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Project Details (Hidden initially) */
+        .project-details {
+            display: none;
+            background-color: #444;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        /* Icon Style */
+        .project-card i {
+            font-size: 40px;
+            margin-top: 10px;
+            color: #4caf50;
+        }
+
+        @media (max-width: 768px) {
+            .project-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="projects">
+        <h1>My <span>Projects</span></h1>
+        <div class="projects-container">
+            <!-- Project 1: Cafeteria -->
+            <div class="project-card">
+                <i class="fas fa-utensils"></i>
+                <h3>Cafeteria Website</h3>
+                <p>Developed a dynamic website for a cafeteria, including an interactive menu, order system, and contact form.</p>
+                <a href="javascript:void(0)" class="btn" onclick="showDetails('cafeteria-details')">View Project</a>
+                <div id="cafeteria-details" class="project-details">
+                    <h4>Project Details:</h4>
+                    <p>Technology used: HTML, Bootstrap, JavaScript, </p>
+                    <p>Features: Order system, Menu display, Customer contact</p>
+                </div>
+            </div>
+
+            <!-- Project 2: School Website -->
+            <div class="project-card">
+                <i class="fas fa-school"></i>
+                <h3>School Website</h3>
+                <p>Built a professional website for a school, featuring admissions, news updates, and event calendars.</p>
+                <a href="javascript:void(0)" class="btn" onclick="showDetails('school-details')">View Project</a>
+                <div id="school-details" class="project-details">
+                    <h4>Project Details:</h4>
+                    <p>Technology used: HTML, CSS, JavaScript</p>
+                    <p>Features: School events, Admission form, News section</p>
+                </div>
+            </div>
+
+            <!-- Project 3: Pharmacy Website -->
+            <div class="project-card">
+                <i class="fas fa-pills"></i>
+                <h3>Pharmacy Website</h3>
+                <p>Created a website for a pharmacy with features such as online ordering, product catalog, and customer support.</p>
+                <a href="javascript:void(0)" class="btn" onclick="showDetails('pharmacy-details')">View Project</a>
+                <div id="pharmacy-details" class="project-details">
+                    <h4>Project Details:</h4>
+                    <p>Technology used: HTML, CSS, JavaScript, react.js</p>
+                    <p>Features: Product listing, Order system, Customer login</p>
+                </div>
+            </div>
+
+            <!-- Project 4: Moto Delivery -->
+            <div class="project-card">
+                <i class="fas fa-motorcycle"></i>
+                <h3>Moto Delivery</h3>
+                <p>Developed a mobile-friendly website for a motorcycle delivery service, allowing users to place orders and track deliveries in real-time.</p>
+                <a href="javascript:void(0)" class="btn" onclick="showDetails('moto-delivery-details')">View Project</a>
+                <div id="moto-delivery-details" class="project-details">
+                    <h4>Project Details:</h4>
+                    <p>Technology used: HTML, CSS, JavaScript,</p>
+                    <p>Features: Real-time tracking, Order management, User registration and login</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        function showDetails(projectId) {
+            var projectDetails = document.getElementById(projectId);
+            if (projectDetails.style.display === "none" || projectDetails.style.display === "") {
+                projectDetails.style.display = "block";
+            } else {
+                projectDetails.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

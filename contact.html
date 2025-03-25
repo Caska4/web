@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+
+        header nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header nav ul li a:hover {
+            color: #4caf50;
+        }
+
+        /* Contact Section */
+        section.contact {
+            padding: 40px;
+            background-color: #111;
+            max-width: 1200px;
+            margin: 40px auto;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        h1 span {
+            color: #4caf50;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+
+        .contact-info h2 {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            color: #ddd;
+        }
+
+        .social-icons a {
+            margin: 10px;
+            color: #4caf50;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .contact-form {
+            flex: 2;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact">
+        <h1>Contact <span>Me</span></h1>
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info" style="font-family: Arial, sans-serif; color: #ddd; line-height: 1.6;">
+                <h2 style="font-size: 28px; color: #fff; margin-bottom: 10px;">Let's Work Together</h2>
+                <p style="margin-bottom: 15px;">I am always excited to connect and collaborate. Whether you have a project in mind or simply want to discuss opportunities, feel free to reach out. I am here to help and look forward to hearing from you soon!</p>
+
+                <p style="margin-bottom: 10px;">
+                    📧 <a href="mailto:abdiazizmohdabdi@gmail.com" style="color: #4caf50; text-decoration: none; font-weight: bold;">abdiazizmohdabdi@gmail.com</a>
+                </p>
+                <p style="margin-bottom: 20px;">📞 <span style="color: #fff; font-weight: bold;">+252 61 486 7424</span></p>
+                
+                <div class="social-icons" style="margin-top: 10px;">
+                    <a href="https://www.facebook.com/share/1999nspaUB/" target="_blank" style="margin: 0 10px; color: #4caf50; font-size: 24px; text-decoration: none;">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="mailto:abdiazizmohdabdi@gmail.com" style="margin: 0 10px; color: #4caf50; font-size: 24px; text-decoration: none;">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/252614867424" target="_blank" style="margin: 0 10px; color: #4caf50; font-size: 24px; text-decoration: none;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form action="https://formsubmit.co/abdiazizmohdabdi@gmail.com" method="POST" class="mx-auto" style="max-width: 800px;" onsubmit="resetForm()">
+                    <input type="text" name="name" placeholder="Enter Your Name" required>
+                    <input type="email" name="email" placeholder="Enter Your Email" required>
+                    <input type="text" name="subject" placeholder="Enter Your Subject" required>
+                    <textarea name="message" placeholder="Enter Your Message" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Function to reset the form after submission
+        function resetForm() {
+            setTimeout(function() {
+                document.querySelector('form').reset(); // Reset the form
+            }, 500); // Delay reset to allow for form submission
+        }
+    </script>
+
+</body>
+</html>
