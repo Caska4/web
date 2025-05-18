@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Accounting Business</title>
+<!-- Font Awesome CDN for icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  integrity="sha512-papbEyq7KgwWkPdx4Qo0VDFDv2p8e9DDPOfHkF/Ha+2b7G2D1BZVQtdCip9WE2IF+fkpW1Pspx6NqUst3RD0Ow=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+  :root {
+    --primary-color: #4f46e5;
+    --secondary-color: #9333ea;
+    --accent-color: #f97316;
+    --background-color: #f9fafb;
+    --text-color: #111827;
+    --neutral-light: #e5e7eb;
+    --neutral-dark: #374151;
+    --error-color: #dc2626;
+    --income-green: #16a34a;
+    --loss-red: #dc2626;
+    --chart-profit: #4f46e5;
+    --chart-nonprofit: #9333ea;
+    --chart-youowe: #f97316;
+    --chart-owedtoyou: #10b981;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  nav button:hover,
+  nav button.active {
+    color: var(--accent-color);
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 2rem 1rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .auth-container {
+    max-width: 450px;
+    background: white;
+    padding: 2rem;
+    margin: 3rem auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="number"] {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--neutral-light);
+    margin-bottom: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  button.primary-btn {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  button.primary-btn:hover {
+    background: var(--secondary-color);
+  }
+
+  .switch-auth {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .switch-auth button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .error-msg {
+    color: var(--error-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  #accounting-section {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2rem;
+  }
+
+  #accounting-section h2 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  table thead {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  th, td {
+    padding: 0.75rem;
+    border: 1px solid var(--neutral-light);
+    text-align: center;
+  }
+
+  td:nth-child(2) {
+    text-align: left;
+  }
+
+  .actions button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 0.375rem;
+    margin: 0 0.15rem;
+  }
+
+  .actions button.edit-btn {
+    background: #2563eb;
+  }
+
+  .actions button.delete-btn {
+    background: #dc2626;
+  }
+
+  #summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    border-top: 2px solid var(--neutral-light);
+    padding-top: 1rem;
+  }
+
+  .summary-item {
+    flex: 1 1 200px;
+    background: var(--neutral-light);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: var(--neutral-dark);
+  }
+
+  .summary-item .amount {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  #net-result.income .amount,
+  #net-result.income .icon {
+    color: var(--income-green);
+  }
+
+  #net-result.loss .amount,
+  #net-result.loss .icon {
+    color: var(--loss-red);
+  }
+
+  #transaction-form {
+    background: #f3f4f6;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  #transaction-form h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .form-group > div {
+    flex: 1 1 180px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #chart-container {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+
+  #about-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+    max-width: 900px;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  #logout-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  #logout-btn:hover {
+    background: white;
+    color: var(--primary-color);
+  }
+
+  /* Responsive: Mobile First */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      margin-top: 0.5rem;
+    }
+
+    .form-group {
+      flex-direction: column;
+    }
+
+    #summary {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .summary-item {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #chart-container {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.2rem;
+    }
+
+    nav button {
+      font-size: 0.9rem;
+    }
+
+    .auth-container {
+      padding: 1.5rem;
+    }
+
+    .form-group > div {
+      width: 100%;
+    }
+  }
+</style>
+
+</head>
+<body>
+<header>
+  <h1>Accounting Business</h1>
+  <nav id="nav-buttons" class="hidden">
+    <button id="nav-home" class="active">Home</button>
+    <button id="nav-about">About</button>
+    <button id="logout-btn" title="Logout">Log Out</button>
+  </nav>
+</header>
+
+<main>
+  <!-- Authentication container -->
+  <section id="auth-container" class="auth-container">
+    <h2 id="auth-title">Login</h2>
+    <form id="auth-form">
+      <div class="error-msg" id="auth-error" aria-live="polite"></div>
+      <label for="username-input">Username</label>
+      <input type="text" id="username-input" required autocomplete="username" />
+      <label for="password-input">Password</label>
+      <input type="password" id="password-input" required autocomplete="current-password" />
+      <button type="submit" class="primary-btn" id="auth-submit-btn">Log In</button>
+    </form>
+    <div class="switch-auth">
+      <span id="switch-text">Don't have an account?</span> 
+      <button id="switch-auth-btn">Register</button>
+    </div>
+  </section>
+
+  <!-- Home page -->
+  <section id="home-section" class="hidden" aria-label="Home page content">
+    <div id="accounting-section">
+      <h2>Accounting Transactions</h2>
+      <form id="transaction-form">
+        <h3>Add New Transaction</h3>
+        <div class="form-group">
+          <div>
+            <label for="date-input">Date</label>
+            <input type="date" id="date-input" required />
+          </div>
+          <div>
+            <label for="desc-input">business_Name</label>
+            <input type="text" id="desc-input" required maxlength="50" />
+          </div>
+          <div>
+            <label for="received-input">Cash on hand ($)</label>
+            <input type="number" id="received-input" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label for="spent-input">Cash out ($)</label>
+            <input type="number" id="spent-input" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label for="youowe-input">Accounts payable ($)</label>
+            <input type="number" id="youowe-input" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label for="owedtoyou-input">Accounts Receivable ($)</label>
+            <input type="number" id="owedtoyou-input" min="0" step="0.01" value="0" />
+          </div>
+        </div>
+        <button type="submit" class="primary-btn" style="margin-top: 1rem;">Add Transaction</button>
+      </form>
+
+    <table aria-label="Accounting transactions table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Cash on hand</th>
+      <th>Cash out</th>
+      <th>Accounts payable</th>
+      <th>Accounts Receivable</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="transactions-tbody">
+    <!-- Transactions rows here -->
+  </tbody>
+</table>
+
+<div id="summary" aria-label="Summary of transactions">
+  <div class="summary-item" id="money-received">
+    Cash on hand: <span class="amount">$0.00</span>
+  </div>
+  <div class="summary-item" id="money-spent">
+    Cash out: <span class="amount">$0.00</span>
+  </div>
+  <div class="summary-item" id="debts-owe">
+    Accounts payable: <span class="amount">$0.00</span>
+  </div>
+  <div class="summary-item" id="debts-owed-to-you">
+    Accounts Receivable: <span class="amount">$0.00</span>
+  </div>
+  <div class="summary-item income" id="net-result" aria-live="polite">
+    <i class="icon fa-solid fa-arrow-up"></i>
+    <span class="label">Net Income</span>
+    <span class="amount">$0.00</span>
+  </div>
+</div>
+
+
+      <div id="chart-container" aria-label="Profit and Loss Chart">
+        <canvas id="profitLossChart" role="img" aria-label="Chart showing profit, non-profit, debts you owe, and debts owed to you"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- About page -->
+  <section id="about-section" class="hidden" aria-label="About page content">
+    <h2>About Us</h2>
+    <p>Welcome to our Accounting Business! We provide comprehensive accounting solutions tailored to your needs. Our goal is to help you manage your finances effectively and efficiently, tracking incomes, expenses, and debts with ease. Our user-friendly platform lets you log transactions, monitor your cash flow, and get powerful insights into your business health.</p>
+    <p>Built with simplicity and usability in mind, this platform is perfect for small businesses and freelancers looking to keep their accounting in check. We are committed to empowering you to take control of your financial future.</p>
+  </section>
+</main>
+
+<script>
+  (() => {
+    'use strict';
+
+    // Utility to format numbers as currency string
+    function formatCurrency(num) {
+      return '$' + num.toFixed(2);
+    }
+
+    // LocalStorage keys
+    const STORAGE_KEYS = {
+      USERS: 'accbiz_users',
+      SESSION: 'accbiz_session',
+      TRANSACTIONS_PREFIX: 'accbiz_transactions_' // + username
+    };
+
+    // DOM Elements
+    const authContainer = document.getElementById('auth-container');
+    const authForm = document.getElementById('auth-form');
+    const authTitle = document.getElementById('auth-title');
+    const authError = document.getElementById('auth-error');
+    const usernameInput = document.getElementById('username-input');
+    const passwordInput = document.getElementById('password-input');
+    const authSubmitBtn = document.getElementById('auth-submit-btn');
+    const switchAuthBtn = document.getElementById('switch-auth-btn');
+    const switchText = document.getElementById('switch-text');
+    const navButtons = document.getElementById('nav-buttons');
+    const navHomeBtn = document.getElementById('nav-home');
+    const navAboutBtn = document.getElementById('nav-about');
+    const logoutBtn = document.getElementById('logout-btn');
+    const homeSection = document.getElementById('home-section');
+    const aboutSection = document.getElementById('about-section');
+    const transactionsTbody = document.getElementById('transactions-tbody');
+
+    const transactionForm = document.getElementById('transaction-form');
+    const dateInput = document.getElementById('date-input');
+    const descInput = document.getElementById('desc-input');
+    const receivedInput = document.getElementById('received-input');
+    const spentInput = document.getElementById('spent-input');
+    const youoweInput = document.getElementById('youowe-input');
+    const owedtoyouInput = document.getElementById('owedtoyou-input');
+
+    const moneyReceivedElem = document.querySelector('#money-received .amount');
+    const moneySpentElem = document.querySelector('#money-spent .amount');
+    const debtsOweElem = document.querySelector('#debts-owe .amount');
+    const debtsOwedToYouElem = document.querySelector('#debts-owed-to-you .amount');
+    const netResultElem = document.querySelector('#net-result .amount');
+    const netResultContainer = document.getElementById('net-result');
+    const netResultIcon = netResultContainer.querySelector('.icon');
+    const netResultLabel = netResultContainer.querySelector('.label');
+
+    // Chart elements
+    const ctx = document.getElementById('profitLossChart').getContext('2d');
+    let profitLossChart = null;
+
+    // State
+    let users = [];
+    let currentUser = null;
+    let transactions = [];
+
+    // Initialize app
+    function init() {
+      loadUsers();
+      loadSession();
+      if (currentUser) {
+        showApp();
+      } else {
+        showAuth();
+      }
+      setupEventListeners();
+    }
+
+    function loadUsers() {
+      try {
+        const usersStr = localStorage.getItem(STORAGE_KEYS.USERS);
+        users = usersStr ? JSON.parse(usersStr) : [];
+      } catch {
+        users = [];
+      }
+    }
+
+    function saveUsers() {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    }
+
+    function loadSession() {
+      const sessionStr = localStorage.getItem(STORAGE_KEYS.SESSION);
+      if (sessionStr) {
+        try {
+          const sess = JSON.parse(sessionStr);
+          if (sess && sess.username) {
+            currentUser = sess.username;
+            loadTransactions();
+          } else {
+            currentUser = null;
+          }
+        } catch {
+          currentUser = null;
+        }
+      }
+    }
+
+    function saveSession(username) {
+      localStorage.setItem(STORAGE_KEYS.SESSION, JSON.stringify({ username }));
+    }
+
+    function clearSession() {
+      localStorage.removeItem(STORAGE_KEYS.SESSION);
+      currentUser = null;
+      transactions = [];
+    }
+
+    function loadTransactions() {
+      if (!currentUser) return;
+      try {
+        const transStr = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS_PREFIX + currentUser);
+        transactions = transStr ? JSON.parse(transStr) : [];
+      } catch {
+        transactions = [];
+      }
+    }
+
+    function saveTransactions() {
+      if (!currentUser) return;
+      localStorage.setItem(STORAGE_KEYS.TRANSACTIONS_PREFIX + currentUser, JSON.stringify(transactions));
+    }
+
+    function setupEventListeners() {
+      authForm.addEventListener('submit', handleAuthSubmit);
+      switchAuthBtn.addEventListener('click', switchAuthMode);
+      navHomeBtn.addEventListener('click', () => navigateTo('home'));
+      navAboutBtn.addEventListener('click', () => navigateTo('about'));
+      logoutBtn.addEventListener('click', handleLogout);
+      transactionForm.addEventListener('submit', handleAddTransaction);
+      transactionsTbody.addEventListener('click', handleTransactionTableClick);
+    }
+
+    // Authentication mode: login / register
+    let isLoginMode = true;
+    function switchAuthMode() {
+      isLoginMode = !isLoginMode;
+      authTitle.textContent = isLoginMode ? 'Login' : 'Register';
+      authSubmitBtn.textContent = isLoginMode ? 'Log In' : 'Register';
+      switchText.textContent = isLoginMode ? "Don't have an account?" : "Already have an account?";
+      switchAuthBtn.textContent = isLoginMode ? "Register" : "Log In";
+      authError.textContent = '';
+      authForm.reset();
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      authError.textContent = '';
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      if (!username || !password) {
+        authError.textContent = 'Please enter both username and password.';
+        return;
+      }
+      if (isLoginMode) {
+        loginUser(username, password);
+      } else {
+        registerUser(username, password);
+      }
+    }
+
+    function registerUser(username, password) {
+      if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+        authError.textContent = 'Username already exists.';
+        return;
+      }
+      users.push({ username, password });
+      saveUsers();
+      authError.style.color = 'green';
+      authError.textContent = 'Registration successful! Please log in.';
+      setTimeout(() => {
+        authError.style.color = 'var(--error-color)';
+        switchAuthMode();
+      }, 2000);
+    }
+
+    function loginUser(username, password) {
+      const user = users.find(u => u.username.toLowerCase() === username.toLowerCase());
+      if (!user || user.password !== password) {
+        authError.textContent = 'Invalid username or password.';
+        return;
+      }
+      currentUser = user.username;
+      saveSession(currentUser);
+      loadTransactions();
+      showApp();
+    }
+
+    function showApp() {
+      authContainer.classList.add('hidden');
+      navButtons.classList.remove('hidden');
+      navigateTo('home');
+    }
+
+    function showAuth() {
+      authContainer.classList.remove('hidden');
+      navButtons.classList.add('hidden');
+      homeSection.classList.add('hidden');
+      aboutSection.classList.add('hidden');
+      authForm.reset();
+      authError.textContent = '';
+      usernameInput.focus();
+    }
+
+    function handleLogout() {
+      clearSession();
+      if(profitLossChart){
+        profitLossChart.destroy();
+        profitLossChart = null;
+      }
+      showAuth();
+    }
+
+    // Navigation 
+    function navigateTo(page) {
+      if (page === 'home') {
+        homeSection.classList.remove('hidden');
+        aboutSection.classList.add('hidden');
+        navHomeBtn.classList.add('active');
+        navAboutBtn.classList.remove('active');
+        updateTable();
+      } else if (page === 'about') {
+        homeSection.classList.add('hidden');
+        aboutSection.classList.remove('hidden');
+        navAboutBtn.classList.add('active');
+        navHomeBtn.classList.remove('active');
+      }
+    }
+
+    // Transactions handling
+    let editingId = null;
+
+    function handleAddTransaction(e) {
+      e.preventDefault();
+
+      const dateVal = dateInput.value;
+      const descVal = descInput.value.trim();
+      const receivedVal = parseFloat(receivedInput.value) || 0;
+      const spentVal = parseFloat(spentInput.value) || 0;
+      const youOweVal = parseFloat(youoweInput.value) || 0;
+      const owedToYouVal = parseFloat(owedtoyouInput.value) || 0;
+
+      if (!dateVal || !descVal) {
+        alert('Please fill date and description fields.');
+        return;
+      }
+
+      // Calculate total
+      const total = (receivedVal - spentVal) + (owedToYouVal - youOweVal);
+
+      if (editingId !== null) {
+        // Update existing transaction
+        const idx = transactions.findIndex(t => t.id === editingId);
+        if (idx !== -1) {
+          transactions[idx] = {
+            id: editingId,
+            date: dateVal,
+            description: descVal,
+            received: receivedVal,
+            spent: spentVal,
+            youowe: youOweVal,
+            owedtoyou: owedToYouVal,
+            total
+          };
+        }
+        editingId = null;
+        transactionForm.querySelector('h3').textContent = 'Add New Transaction';
+        transactionForm.querySelector('button[type="submit"]').textContent = 'Add Transaction';
+      } else {
+        // Add new transaction
+        const newTransaction = {
+          id: Date.now(),
+          date: dateVal,
+          description: descVal,
+          received: receivedVal,
+          spent: spentVal,
+          youowe: youOweVal,
+          owedtoyou: owedToYouVal,
+          total
+        };
+        transactions.push(newTransaction);
+      }
+
+      saveTransactions();
+      updateTable();
+      transactionForm.reset();
+      dateInput.focus();
+    }
+
+    function updateTable() {
+      transactionsTbody.innerHTML = '';
+      transactions.sort((a,b) => new Date(b.date) - new Date(a.date)); // newest first
+      transactions.forEach(t => {
+        const tr = document.createElement('tr');
+
+        const dateTd = document.createElement('td');
+        dateTd.textContent = t.date;
+        tr.appendChild(dateTd);
+
+        const descTd = document.createElement('td');
+        descTd.textContent = t.description;
+        tr.appendChild(descTd);
+
+        const receivedTd = document.createElement('td');
+        receivedTd.textContent = formatCurrency(t.received);
+        tr.appendChild(receivedTd);
+
+        const spentTd = document.createElement('td');
+        spentTd.textContent = formatCurrency(t.spent);
+        tr.appendChild(spentTd);
+
+        const youoweTd = document.createElement('td');
+        youoweTd.textContent = formatCurrency(t.youowe);
+        tr.appendChild(youoweTd);
+
+        const owedtoyouTd = document.createElement('td');
+        owedtoyouTd.textContent = formatCurrency(t.owedtoyou);
+        tr.appendChild(owedtoyouTd);
+
+        const totalTd = document.createElement('td');
+        totalTd.textContent = formatCurrency(t.total);
+        tr.appendChild(totalTd);
+
+        const actionsTd = document.createElement('td');
+        actionsTd.classList.add('actions');
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.classList.add('edit-btn');
+        editBtn.setAttribute('data-action', 'edit');
+        editBtn.setAttribute('data-id', t.id);
+        editBtn.title = "Edit transaction";
+        actionsTd.appendChild(editBtn);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.setAttribute('data-action', 'delete');
+        deleteBtn.setAttribute('data-id', t.id);
+        deleteBtn.title = "Delete transaction";
+        actionsTd.appendChild(deleteBtn);
+
+        tr.appendChild(actionsTd);
+
+        transactionsTbody.appendChild(tr);
+      });
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const moneyReceived = transactions.reduce((sum, t) => sum + t.received, 0);
+      const moneySpent = transactions.reduce((sum, t) => sum + t.spent, 0);
+      const debtsYouOwe = transactions.reduce((sum, t) => sum + t.youowe, 0);
+      const debtsOwedToYou = transactions.reduce((sum, t) => sum + t.owedtoyou, 0);
+      const netResult = (moneyReceived - moneySpent) + (debtsOwedToYou - debtsYouOwe);
+
+      moneyReceivedElem.textContent = formatCurrency(moneyReceived);
+      moneySpentElem.textContent = formatCurrency(moneySpent);
+      debtsOweElem.textContent = formatCurrency(debtsYouOwe);
+      debtsOwedToYouElem.textContent = formatCurrency(debtsOwedToYou);
+      netResultElem.textContent = formatCurrency(netResult);
+
+      // Update icon and label for net income/loss
+      if (netResult >= 0) {
+        netResultContainer.classList.remove('loss');
+        netResultContainer.classList.add('income');
+        netResultIcon.className = 'icon fa-solid fa-arrow-up';
+        netResultLabel.textContent = 'Net Income';
+      } else {
+        netResultContainer.classList.remove('income');
+        netResultContainer.classList.add('loss');
+        netResultIcon.className = 'icon fa-solid fa-arrow-down';
+        netResultLabel.textContent = 'Net Loss';
+      }
+
+      updateChart({moneyReceived, moneySpent, debtsYouOwe, debtsOwedToYou});
+    }
+
+    function updateChart({moneyReceived, moneySpent, debtsYouOwe, debtsOwedToYou}) {
+      // profit = moneyReceived - moneySpent if positive
+      const profit = Math.max(moneyReceived - moneySpent, 0);
+      const loss = Math.max(moneySpent - moneyReceived, 0);
+
+      const data = {
+        labels: ['Profit', 'Loss', 'Debts You Owe', 'Debts Owed To You'],
+        datasets: [{
+          data: [profit, loss, debtsYouOwe, debtsOwedToYou],
+          backgroundColor: [
+            'var(--chart-profit)',
+            'var(--chart-nonprofit)',
+            'var(--chart-youowe)',
+            'var(--chart-owedtoyou)'
+          ],
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      };
+
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: {
+                size: 14,
+                weight: '600'
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: context => {
+                const label = context.label || '';
+                const value = context.parsed || 0;
+                return `${label}: \$${value.toFixed(2)}`;
+              }
+            }
+          }
+        }
+      };
+
+      if(profitLossChart){
+        // Update existing chart
+        profitLossChart.data = data;
+        profitLossChart.options = options;
+        profitLossChart.update();
+      } else {
+        // Create new chart
+        profitLossChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data,
+          options: options
+        });
+      }
+    }
+
+    function handleTransactionTableClick(e) {
+      const target = e.target;
+      if (target.tagName.toLowerCase() !== 'button') return;
+      const action = target.getAttribute('data-action');
+      const id = Number(target.getAttribute('data-id'));
+      if (action === 'edit') {
+        startEditingTransaction(id);
+      } else if (action === 'delete') {
+        deleteTransaction(id);
+      }
+    }
+
+    function startEditingTransaction(id) {
+      const trans = transactions.find(t => t.id === id);
+      if (!trans) return;
+      editingId = id;
+      dateInput.value = trans.date;
+      descInput.value = trans.description;
+      receivedInput.value = trans.received.toFixed(2);
+      spentInput.value = trans.spent.toFixed(2);
+      youoweInput.value = trans.youowe.toFixed(2);
+      owedtoyouInput.value = trans.owedtoyou.toFixed(2);
+      transactionForm.querySelector('h3').textContent = 'Edit Transaction';
+      transactionForm.querySelector('button[type="submit"]').textContent = 'Save Changes';
+      dateInput.focus();
+    }
+
+    function deleteTransaction(id) {
+      if (!confirm('Are you sure you want to delete this transaction?')) return;
+      transactions = transactions.filter(t => t.id !== id);
+      saveTransactions();
+      updateTable();
+    }
+
+    // On load
+    init();
+
+  })();
+  function updateChart({moneyReceived, moneySpent, debtsYouOwe, debtsOwedToYou}) {
+  const profit = Math.max(moneyReceived - moneySpent, 0);
+  const loss = Math.max(moneySpent - moneyReceived, 0);
+
+  const data = {
+    labels: ['Profit', 'Loss', 'Debts You Owe', 'Debts Owed To You'],
+    datasets: [{
+      data: [profit, loss, debtsYouOwe, debtsOwedToYou],
+      backgroundColor: [
+        'var(--chart-profit)', // Profit color
+        'var(--loss-red)',     // Loss color (red)
+        'var(--chart-youowe)', // Debts You Owe color
+        'var(--chart-owedtoyou)' // Debts Owed To You color
+      ],
+      borderColor: '#fff',
+      borderWidth: 2
+    }]
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: {
+            size: 14,
+            weight: '600'
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: context => {
+        const label = context.label || '';
+        const value = context.parsed || 0;
+        return `${label}: \$${value.toFixed(2)}`;
+          }
+        }
+      }
+    }
+  };
+
+  if(profitLossChart){
+    profitLossChart.data = data;
+    profitLossChart.options = options;
+    profitLossChart.update();
+  } else {
+    profitLossChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: options
+    });
+  }
+}
+
+</script>
+</body>
+</html>
+
+
